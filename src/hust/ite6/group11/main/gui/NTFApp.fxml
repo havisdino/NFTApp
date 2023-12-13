@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="463.0" prefWidth="798.0" tabClosingPolicy="UNAVAILABLE" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21">
+  <tabs>
+    <Tab text="Newsfeed">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <ScrollPane layoutY="13.0" prefHeight="407.0" prefWidth="584.0">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="608.0" />
+                    </content>
+                  </ScrollPane>
+                  <TextField layoutX="598.0" layoutY="14.0" prefHeight="26.0" prefWidth="120.0" promptText="Type something" />
+                  <Button layoutX="726.0" layoutY="14.0" minHeight="17.0" minWidth="25.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="61.0" text="Search" />
+                  <VBox alignment="CENTER_LEFT" layoutX="608.0" layoutY="111.0" prefHeight="190.0" prefWidth="171.0" style="-fx-padding: 10;">
+                     <children>
+                        <Label prefHeight="43.0" prefWidth="187.0" text="FILTERS">
+                           <font>
+                              <Font name="System Bold" size="22.0" />
+                           </font>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </Label>
+                        <CheckBox layoutX="10.0" layoutY="142.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="130.0" text="Twitter posts" />
+                        <CheckBox layoutX="10.0" layoutY="144.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="130.0" text="OpenSea posts" />
+                        <CheckBox layoutX="10.0" layoutY="158.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="130.0" text="AirNFTs posts" />
+                        <CheckBox layoutX="10.0" layoutY="172.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="130.0" text="Other posts" />
+                     </children>
+                  </VBox>
+                  <MenuButton layoutX="720.0" layoutY="394.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="68.0" text="Menu">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="Action 1" />
+                      <MenuItem mnemonicParsing="false" text="Action 2" />
+                    </items>
+                  </MenuButton>
+               </children></AnchorPane>
+      </content>
+    </Tab>
+    <Tab text="Analysis">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <VBox alignment="CENTER" layoutX="13.0" layoutY="6.0" prefHeight="424.0" prefWidth="504.0">
+                     <children>
+                        <ScatterChart prefHeight="242.0" prefWidth="534.0">
+                          <xAxis>
+                            <CategoryAxis side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
+                        </ScatterChart>
+                        <LineChart prefHeight="194.0" prefWidth="504.0">
+                          <xAxis>
+                            <CategoryAxis side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
+                        </LineChart>
+                     </children>
+                  </VBox>
+               </children></AnchorPane>
+      </content>
+    </Tab>
+  </tabs>
+</TabPane>

@@ -1,7 +1,6 @@
-package hust.ite6.group11.post;
+package hust.ite6.group11.main.post;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Post {
@@ -14,15 +13,12 @@ public class Post {
         tags = new ArrayList<>();
         this.url = url;
         this.content = content;
+        this.title = null;
     }
 
     public Post(String title, String content, String url) {
         this(content, url);
         this.title = title;
-    }
-
-    public void addTags(String ...tags) {
-        Collections.addAll(this.tags, tags);
     }
 
     public List<String> getTags() {
@@ -31,6 +27,10 @@ public class Post {
 
     public String getContent() {
         return content;
+    }
+
+    public String getTitle() {
+        return title;
     }
 
     public String getUrl() {

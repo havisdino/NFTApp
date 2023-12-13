@@ -1,8 +1,8 @@
 package hust.ite6.group11.test;
 
-import hust.ite6.group11.post.Post;
-import hust.ite6.group11.scraper.Scraper;
-import hust.ite6.group11.scraper.TwitterScraper;
+import hust.ite6.group11.main.post.Post;
+import hust.ite6.group11.main.scraper.Scraper;
+import hust.ite6.group11.main.scraper.TwitterScraper;
 
 import java.util.List;
 

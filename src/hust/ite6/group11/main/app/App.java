@@ -1,4 +1,4 @@
-package hust.ite6.group11.app;
+package hust.ite6.group11.main.app;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -6,7 +6,6 @@ import javafx.stage.Stage;
 public class App extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-
 
     }
 

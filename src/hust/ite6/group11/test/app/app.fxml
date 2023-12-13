@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<AnchorPane prefHeight="484.0" prefWidth="689.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hust.ite6.group11.test.app.AppController">
+   <children>
+      <TabPane prefHeight="484.0" prefWidth="704.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Newsfeed">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="453.0" prefWidth="704.0">
+                     <children>
+                        <ScrollPane layoutX="14.0" layoutY="14.0" prefHeight="422.0" prefWidth="420.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+                          </content>
+                        </ScrollPane>
+                        <TextField layoutX="455.0" layoutY="14.0" promptText="Search for post" AnchorPane.topAnchor="20.0" />
+                        <Button layoutX="626.0" layoutY="14.0" mnemonicParsing="false" text="Search" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Analysis">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>

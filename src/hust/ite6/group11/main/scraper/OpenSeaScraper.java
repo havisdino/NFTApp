@@ -1,6 +1,6 @@
-package hust.ite6.group11.scraper;
+package hust.ite6.group11.main.scraper;
 
-import hust.ite6.group11.post.Post;
+import hust.ite6.group11.main.post.Post;
 
 import java.util.List;
 

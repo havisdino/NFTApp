@@ -1,9 +1,11 @@
 // Dinh Viet Ha - 20215042
 
-package hust.ite6.group11.scraper;
+package hust.ite6.group11.main.scraper;
 
-import org.openqa.selenium.*;
-import hust.ite6.group11.post.Post;
+import hust.ite6.group11.main.post.Post;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +48,9 @@ public class TwitterScraper extends Scraper {
 
     @Override
     public List<Post> browse() {
+        System.out.print("Logging in ... ");
         logIn();
+        System.out.println("\\u001B[32m Done");
         search("NFT");
 
         final int scrollCount = 10;
