@@ -22,7 +22,7 @@ public class Fetcher {
     private List<Scraper> scrapers = new ArrayList<>();
 
     public Fetcher(ScraperType ...types) throws IOException, NullConfigException {
-        if (Arrays.stream(types).count() == 0) {
+        if (Arrays.stream(types).findAny().isEmpty()) {
             throw new IllegalArgumentException("Number of types must be larger than 0");
         }
         for (ScraperType type : types) {
@@ -30,9 +30,9 @@ public class Fetcher {
         }
     }
 
-    private void saveAsJson(List<Post> posts, String header) throws IOException, NullConfigException {
+    private void saveAsJson(List<Post> posts, String prefix) throws IOException, NullConfigException {
         String crawledDirectory = Config.getInstance().getCrawledDirectory();
-        String saveDirectory = crawledDirectory + header + System.currentTimeMillis() + ".json";
+        String saveDirectory = crawledDirectory + prefix + System.currentTimeMillis() + ".json";
         Gson gson = new GsonBuilder().create();
         FileWriter fileWriter = new FileWriter(saveDirectory, false);
         fileWriter.flush();
@@ -61,12 +61,14 @@ public class Fetcher {
     public void fetch() throws Exception {
         for (Scraper scraper : scrapers) {
             List<Post> posts = scraper.browse();
-            String header =  scraper.getClass().getSimpleName();
-            System.out.println(posts.size() + " posts found by " + header);
-            System.out.print("Dumping to json ... ");
-            saveAsJson(posts, header);
+            String scraperName =  scraper.getClass().getSimpleName();
+            String prefix = "[" + scraperName + "] ";
+
+            System.out.println(prefix + posts.size() + " posts found");
+            System.out.print(prefix + "Dumping to json ... ");
+            saveAsJson(posts, scraperName);
             System.out.println("Done");
-            System.out.print("Saving into database ... ");
+            System.out.print(prefix + "Saving into database ... ");
             saveInDatabase(posts);
             System.out.println("Done");
             scraper.close();

@@ -25,7 +25,8 @@ public class SQLiteHelper implements DatabaseHelper {
                 "url VARCHAR PRIMARY KEY NOT NULL," +
                 "title VARCHAR," +
                 "content VARCHAR," +
-                "tags VARCHAR" +
+                "tags VARCHAR," +
+                "time DATETIME" +
                 ");";
         stmt.executeUpdate(query);
         stmt.close();
