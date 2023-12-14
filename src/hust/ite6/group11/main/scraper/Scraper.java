@@ -19,7 +19,7 @@ public abstract class Scraper {
         System.setProperty("webdriver.chrome.driver", chromeDriverPath);
         ChromeOptions driverOptions = new ChromeOptions();
         driverOptions.setBinary(chromePath);
-        driverOptions.setHeadless(true);
+        driverOptions.addArguments("headless");
 
         driverOptions.setPageLoadStrategy(PageLoadStrategy.EAGER);
         driver = new ChromeDriver(driverOptions);
@@ -37,7 +37,8 @@ public abstract class Scraper {
     public abstract List<Post> browse();
 
     public void close() {
-        System.out.println("Browser driver closed");
+        String prefix = "[" + this.getClass().getSimpleName() + "] ";
+        System.out.println(prefix + "Browser driver closed");
         driver.quit();
     }
 }
