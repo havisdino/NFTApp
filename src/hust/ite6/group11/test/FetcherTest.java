@@ -5,7 +5,7 @@ import hust.ite6.group11.main.scraper.ScraperType;
 
 public class FetcherTest {
     public static void main(String[] args) throws Exception {
-        Fetcher fetcher = new Fetcher(ScraperType.AIRNTFS, ScraperType.AIRNTFS);
+        Fetcher fetcher = new Fetcher(ScraperType.AIRNTFS);
         try {
             fetcher.fetch();
         } catch (Exception e) {

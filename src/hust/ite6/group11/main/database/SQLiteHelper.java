@@ -1,5 +1,6 @@
 package hust.ite6.group11.main.database;
 
+import hust.ite6.group11.main.exceptions.IdenticalPrimaryKeyException;
 import hust.ite6.group11.main.post.Post;
 
 import java.sql.Connection;
@@ -26,7 +27,7 @@ public class SQLiteHelper implements DatabaseHelper {
                 "title VARCHAR," +
                 "content VARCHAR," +
                 "tags VARCHAR," +
-                "time DATETIME" +
+                "time DATETIME NOT NULL DEFAULT(CURRENT_TIMESTAMP)" +
                 ");";
         stmt.executeUpdate(query);
         stmt.close();
@@ -39,9 +40,7 @@ public class SQLiteHelper implements DatabaseHelper {
             String query = "DROP TABLE Post;";
             stmt.executeUpdate(query);
             stmt.close();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+        } catch (SQLException ignored) {}
     }
 
     @Override
@@ -53,7 +52,14 @@ public class SQLiteHelper implements DatabaseHelper {
                 post.getContent().replace("'", "''"));
 
         Statement stmt = connection.createStatement();
-        stmt.executeUpdate(query);
+        try {
+            stmt.executeUpdate(query);
+        } catch (SQLException e) {
+            if (e.getMessage().contains("SQLITE_CONSTRAINT_PRIMARYKEY")) {
+                throw new IdenticalPrimaryKeyException("Primary key constrain failed");
+            }
+        }
+
         stmt.close();
     }
 

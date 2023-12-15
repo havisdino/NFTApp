@@ -23,9 +23,9 @@ public class Config {
     {
         String OS = (System.getProperty("os.name")).toUpperCase();
         if (OS.contains("WIN")) {
-            APPDATA_DIRECTORY = System.getenv("AppData") + "/NFTApp/";
+            APPDATA_DIRECTORY = System.getenv("AppData") + "/NFTSpy/";
         } else {
-            APPDATA_DIRECTORY = System.getProperty("user.home") + "/Library/Application Support/NFTApp/";
+            APPDATA_DIRECTORY = System.getProperty("user.home") + "/Library/Application Support/NFTSpy/";
         }
 
         CONFIG_PATH = APPDATA_DIRECTORY + "config/config.json";
