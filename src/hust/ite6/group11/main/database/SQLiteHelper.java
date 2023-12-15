@@ -45,7 +45,7 @@ public class SQLiteHelper implements DatabaseHelper {
     }
 
     @Override
-    public void insert(Post post) throws SQLException {
+    public void insert(Post post) throws Exception {
         String query = String.format(
                 "INSERT INTO Post (url, title, content) VALUES ('%s', '%s', '%s');",
                 post.getUrl().replace("'", "''"),

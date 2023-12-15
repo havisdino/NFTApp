@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import hust.ite6.group11.main.database.DatabaseHelper;
 import hust.ite6.group11.main.database.SQLiteHelper;
+import hust.ite6.group11.main.exceptions.IdenticalPrimaryKeyException;
 import hust.ite6.group11.main.exceptions.NullConfigException;
 import hust.ite6.group11.main.post.Post;
 import hust.ite6.group11.main.scraper.Scraper;
@@ -13,7 +14,6 @@ import hust.ite6.group11.main.utils.Config;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -40,16 +40,14 @@ public class Fetcher {
         fileWriter.close();
     }
 
-    private void saveInDatabase(List<Post> posts) throws IOException, NullConfigException, SQLException {
+    private void saveInDatabase(List<Post> posts) throws Exception {
         String databasePath = Config.getInstance().getDatabasePath();
         DatabaseHelper databaseHelper = new SQLiteHelper("jdbc:sqlite:" + databasePath);
         for (Post post : posts) {
             try {
                 databaseHelper.insert(post);
-            } catch (SQLException e) {
-                if (e.getMessage().contains("SQLITE_CONSTRAINT_PRIMARYKEY")) {
-                    return;
-                }
+            } catch (IdenticalPrimaryKeyException ignored) {
+            } catch (Exception e) {
                 System.out.println(e.getMessage());
                 databaseHelper.flush();
                 databaseHelper.initialize();
