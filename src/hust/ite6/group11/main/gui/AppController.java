@@ -3,36 +3,56 @@ package hust.ite6.group11.main.gui;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.MenuButton;
 import javafx.scene.control.TextField;
 
 public class AppController {
 
     @FXML
-    private Button fetchNewsButton;
+    private Button fetchButton;
 
     @FXML
-    private MenuButton optionsButton;
-
-    @FXML
-    private TextField postSearchTextField;
+    private Button homeButton;
 
     @FXML
     private Button searchButton;
 
     @FXML
-    void onFetchButtonClick(ActionEvent event) {
+    private TextField searchTextField;
+
+    @FXML
+    private Button settingsButton;
+
+    @FXML
+    private Button trendingButton;
+
+    @FXML
+    void onFetchButtonClicked(ActionEvent event) {
 
     }
 
     @FXML
-    void onMenuButtonClick(ActionEvent event) {
+    void onHomeButtonClicked(ActionEvent event) {
 
     }
 
     @FXML
-    void onSearchButtonClick(ActionEvent event) {
+    void onSearchButtonClicked(ActionEvent event) {
 
+    }
+
+    @FXML
+    void onSettingsButtonClicked(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onTrendingButtonClicked(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onTypeText(ActionEvent event) {
+        
     }
 
 }
