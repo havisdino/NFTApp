@@ -3,10 +3,9 @@ package nftspy.database;
 import nftspy.exceptions.IdenticalPrimaryKeyException;
 import nftspy.post.Post;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SQLiteHelper implements DatabaseHelper {
     Connection connection;
@@ -76,5 +75,24 @@ public class SQLiteHelper implements DatabaseHelper {
     @Override
     public void close() throws SQLException {
         connection.close();
+    }
+
+    @Override
+    public List<Post> getLatestPostLst(int numberOfPosts) throws SQLException {
+        String query = "SELECT title, content, tags FROM Post" +
+                "ORDER BY time DESC";
+        Statement stmt = connection.createStatement();
+        ResultSet results = stmt.executeQuery(query);
+        List<Post> posts = new ArrayList<>();
+        int count = 1;
+        while (results.next() && count <= numberOfPosts) {
+            String title = results.getString("title");
+            String content = results.getString("content");
+            String tags = results.getString("tags");
+            String url = results.getString("url");
+            posts.add(new Post(title, content, url));
+            count++;
+        }
+        return posts;
     }
 }

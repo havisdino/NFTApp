@@ -13,11 +13,7 @@ public class Controller {
     @FXML
     private TextField searchTextField;
 
-    public Controller() {
-        System.out.println(getClass().getSimpleName() + " has been created");
-    }
-
-    private void goTo(String fxmlPath, ActionEvent event) throws IOException {
+    protected void goTo(String fxmlPath, ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
         ((Node) event.getSource()).getScene().setRoot(root);
     }
@@ -54,4 +50,7 @@ public class Controller {
 
     }
 
+    public TextField getSearchTextField() {
+        return searchTextField;
+    }
 }

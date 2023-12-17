@@ -54,14 +54,14 @@ public class Config {
     public static Config getInstance() throws IOException, NullConfigException {
         if (Config.INSTANCE == null) {
             try {
-                INSTANCE = new Config();
-                INSTANCE = Config.fromJson(INSTANCE.getConfigPath());
-                if (INSTANCE.getTwitterPassword() == null
-                        || INSTANCE.getTwitterUsername() == null
-                        || INSTANCE.getChromeDriverPath() == null
-                        || INSTANCE.getChromePath() == null) {
+                Config temp = Config.fromJson(CONFIG_PATH);
+                if (temp.getTwitterPassword() == null
+                        || temp.getTwitterUsername() == null
+                        || temp.getChromeDriverPath() == null
+                        || temp.getChromePath() == null) {
                     throw new NullConfigException("Null configuration found");
                 }
+                INSTANCE = temp;
             } catch (IOException e) {
                 throw new IOException("No configuration found");
             }

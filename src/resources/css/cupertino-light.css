@@ -121,6 +121,8 @@
   -fx-background-radius: inherit;
   -fx-background-insets: inherit;
   -fx-padding: inherit;
+  -fx-focus-color: transparent;
+  -fx-faint-focus-color: transparent;
 }
 .root.popup {
   -fx-background-color: transparent;

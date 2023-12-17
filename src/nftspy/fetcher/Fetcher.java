@@ -41,17 +41,17 @@ public class Fetcher {
     }
 
     private void saveInDatabase(List<Post> posts) throws Exception {
-        String databasePath = Config.getInstance().getDatabasePath();
+        String databasePath = Config.DATABASE_PATH;
         DatabaseHelper databaseHelper = new SQLiteHelper("jdbc:sqlite:" + databasePath);
+        try {
+            databaseHelper.initialize();
+        } catch (Exception ignored) {}
+
         for (Post post : posts) {
             try {
                 databaseHelper.insert(post);
-            } catch (IdenticalPrimaryKeyException ignored) {
-            } catch (Exception e) {
+            } catch (IdenticalPrimaryKeyException e) {
                 System.out.println(e.getMessage());
-                databaseHelper.flush();
-                databaseHelper.initialize();
-                databaseHelper.insert(post);
             }
         }
     }
