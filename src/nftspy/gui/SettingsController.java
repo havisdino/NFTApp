@@ -1,4 +1,4 @@
-package nftspy.gui.controller;
+package nftspy.gui;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

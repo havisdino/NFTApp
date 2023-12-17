@@ -1,15 +1,11 @@
-package nftspy.gui.controller;
+package nftspy.gui;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
-import nftspy.exceptions.NullConfigException;
-import nftspy.utils.Config;
 
 import java.io.IOException;
 
