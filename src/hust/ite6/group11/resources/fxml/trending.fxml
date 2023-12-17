@@ -12,11 +12,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hust.ite6.group11.main.gui.AppController">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hust.ite6.group11.main.gui.TrendingController">
    <children>
       <VBox alignment="TOP_CENTER" prefHeight="700.0" prefWidth="230.0">
          <children>
-            <ImageView fitHeight="87.0" fitWidth="175.0" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: 0.8;">
+            <ImageView fitHeight="87.0" fitWidth="175.0" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: 0.85;">
                <image>
                   <Image url="@../images/dark_logo.png" />
                </image>
@@ -24,7 +24,7 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </ImageView>
-            <VBox alignment="CENTER" prefHeight="636.0" prefWidth="230.0" spacing="20.0">
+            <VBox alignment="CENTER" prefHeight="636.0" prefWidth="230.0" spacing="20.0" styleClass="space-1em">
                <children>
                   <Button fx:id="homeButton" mnemonicParsing="false" onAction="#onHomeButtonClicked" prefHeight="38.0" prefWidth="136.0" text="Newsfeed">
                      <graphic>
@@ -64,7 +64,7 @@
       </VBox>
       <VBox prefHeight="700.0" prefWidth="753.0">
          <children>
-            <HBox alignment="CENTER" prefHeight="84.0" prefWidth="750.0" spacing="20.0">
+            <HBox alignment="CENTER" prefHeight="84.0" prefWidth="750.0" spacing="20.0" styleClass="space-1em">
                <children>
                   <TextField fx:id="searchTextField" onAction="#onTypeText" prefHeight="26.0" prefWidth="468.0" promptText="Type some keywords to search for posts" />
                   <Button fx:id="searchButton" mnemonicParsing="false" onAction="#onSearchButtonClicked" text="Search" />
@@ -81,13 +81,13 @@
                   <Insets />
                </opaqueInsets>
             </HBox>
-            <AnchorPane prefHeight="601.0" prefWidth="753.0" style="-fx-background-color: #f8f8f8; -fx-background-radius: 20px;">
+            <AnchorPane prefHeight="601.0" prefWidth="753.0" styleClass="main-content-holder">
                <children>
                   <VBox prefHeight="584.0" prefWidth="730.0" spacing="20.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
                      <children>
-                        <VBox prefHeight="265.0" prefWidth="713.0" spacing="20.0">
+                        <VBox prefHeight="265.0" prefWidth="713.0" spacing="20.0" styleClass="space-1em">
                            <children>
-                              <Label prefHeight="44.0" prefWidth="584.0" text="Top hashtags in this month">
+                              <Label prefHeight="44.0" prefWidth="584.0" styleClass="title-5" text="Top hashtags in this month">
                                  <font>
                                     <Font name="System Bold" size="24.0" />
                                  </font>
@@ -100,12 +100,12 @@
                                              <children>
                                                 <VBox alignment="CENTER" layoutX="40.0" layoutY="5.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                    <children>
-                                                      <Label style="-fx-text-fill: #FFFFFF;" text="No. 1" textFill="WHITE">
+                                                      <Label style="-fx-text-fill: #FFFFFF;" styleClass="title-5" text="No. 1" textFill="WHITE">
                                                          <font>
                                                             <Font name="System Bold" size="30.0" />
                                                          </font>
                                                       </Label>
-                                                      <Label layoutX="78.0" layoutY="96.0" style="-fx-text-fill: #FFFFFF;" text="#Hashtag1" textFill="WHITE" wrapText="true">
+                                                      <Label fx:id="firstHashTag" layoutX="78.0" layoutY="96.0" style="-fx-text-fill: #FFFFFF;" styleClass="title-5" text="#Hashtag1" textFill="WHITE" wrapText="true">
                                                          <font>
                                                             <Font name="System Bold" size="30.0" />
                                                          </font>
@@ -118,12 +118,12 @@
                                              <children>
                                                 <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                    <children>
-                                                      <Label style="-fx-text-fill: #FFFFFF;" text="No. 2" textFill="WHITE">
+                                                      <Label style="-fx-text-fill: #FFFFFF;" styleClass="title-5" text="No. 2" textFill="WHITE">
                                                          <font>
                                                             <Font name="System Bold" size="30.0" />
                                                          </font>
                                                       </Label>
-                                                      <Label layoutX="76.0" layoutY="96.0" style="-fx-text-fill: #FFFFFF;" text="#Hastag2" textFill="WHITE" wrapText="true">
+                                                      <Label fx:id="secondHashTag" layoutX="76.0" layoutY="96.0" style="-fx-text-fill: #FFFFFF;" styleClass="title-5" text="#Hashtag2" textFill="WHITE" wrapText="true">
                                                          <font>
                                                             <Font name="System Bold" size="30.0" />
                                                          </font>
@@ -136,12 +136,12 @@
                                              <children>
                                                 <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                    <children>
-                                                      <Label style="-fx-text-fill: #FFFFFF;" text="No. 2" textFill="WHITE">
+                                                      <Label style="-fx-text-fill: #FFFFFF;" styleClass="title-5" text="No. 2" textFill="WHITE">
                                                          <font>
                                                             <Font name="System Bold" size="30.0" />
                                                          </font>
                                                       </Label>
-                                                      <Label layoutX="76.0" layoutY="96.0" style="-fx-text-fill: #FFFFFF;" text="#Hastag3" textFill="WHITE" wrapText="true">
+                                                      <Label fx:id="thirdHashTag" layoutX="76.0" layoutY="96.0" style="-fx-text-fill: #FFFFFF;" styleClass="title-5" text="#Hashtag3" textFill="WHITE" wrapText="true">
                                                          <font>
                                                             <Font name="System Bold" size="30.0" />
                                                          </font>
@@ -156,12 +156,12 @@
                               </AnchorPane>
                            </children>
                         </VBox>
-                        <Label text="Top-20 hashtag list">
+                        <Label prefHeight="29.0" prefWidth="292.0" styleClass="title-5" text="Top-20 keyword list">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <ListView prefHeight="223.0" prefWidth="713.0" style="-fx-background-radius: 10px; -fx-border-radius: 10px;">
+                        <ListView fx:id="listView" prefHeight="223.0" prefWidth="713.0" style="-fx-background-radius: 10px; -fx-border-radius: 10px;">
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>
