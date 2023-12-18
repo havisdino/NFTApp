@@ -3,12 +3,12 @@ package nftspy.gui;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import nftspy.exceptions.NullConfigException;
 import nftspy.utils.Config;
 
@@ -16,23 +16,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class SettingsController extends Controller implements Initializable {
+public class SettingsController implements Initializable {
     @FXML
-    private Button analyzerButton;
-
-    @FXML
-    private Button trendingButton;
-
-    @FXML
-    private Button fetchButton;
-
-    @FXML
-    private Button newsfeedButton;
-
-    @FXML
-    private Button searchButton;
-
-
+    private AnchorPane holder;
 
     @FXML
     private TextField chromeField;
@@ -64,15 +50,7 @@ public class SettingsController extends Controller implements Initializable {
             password = config.getTwitterPassword();
             chromePath = config.getChromePath();
             driverPath = config.getChromeDriverPath();
-        } catch (NullConfigException | IOException e) {
-            newsfeedButton.setDisable(true);
-            analyzerButton.setDisable(true);
-            trendingButton.setDisable(true);
-            searchButton.setDisable(true);
-            fetchButton.setDisable(true);
-            getSearchTextField().setDisable(true);
-
-        }
+        } catch (NullConfigException | IOException ignored) {}
         usernameField.setText(username);
         passwordField.setText(password);
         chromeField.setText(chromePath);
@@ -99,16 +77,7 @@ public class SettingsController extends Controller implements Initializable {
             notificationLabel.setText("Settings saved");
             notificationLabel.setStyle("-fx-text-fill: -color-success-7");
             notificationIcon.setImage(new Image("/resources/images/done.png"));
-
-            newsfeedButton.setDisable(false);
-            analyzerButton.setDisable(false);
-            trendingButton.setDisable(false);
-            searchButton.setDisable(false);
-            fetchButton.setDisable(false);
-            getSearchTextField().setDisable(false);
         }
     }
 
-    @Override
-    void onSettingsButtonClicked(ActionEvent event) {}
 }

@@ -42,7 +42,7 @@ public class AirNFTsScraper extends Scraper {
             WebElement articleElement = getDriver().findElement(By.tagName("article"));
             String content = articleElement.getText();
 
-            posts.add(new Post(title, content, url));
+            posts.add(new Post(url, title, content));
         }
         return posts;
     }

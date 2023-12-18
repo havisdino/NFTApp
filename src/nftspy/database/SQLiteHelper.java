@@ -47,10 +47,12 @@ public class SQLiteHelper implements DatabaseHelper {
     @Override
     public void insert(Post post) throws Exception {
         String query = String.format(
-                "INSERT INTO Post (url, title, content) VALUES ('%s', '%s', '%s');",
+                "INSERT INTO Post (url, title, content, tags) VALUES ('%s', '%s', '%s', '%s');",
                 post.getUrl().replace("'", "''"),
                 post.getTitle().replace("'", "''"),
-                post.getContent().replace("'", "''"));
+                post.getContent().replace("'", "''"),
+                String.join(" ", post.getTags()).replace("'", "''")
+        );
 
         Statement stmt = connection.createStatement();
         try {
@@ -70,8 +72,30 @@ public class SQLiteHelper implements DatabaseHelper {
     }
 
     @Override
-    public void search(String query) throws SQLException {
-
+    public List<Post> search(String input, int numberOfPosts) throws SQLException {
+        String query = "SELECT url, title, content, tags FROM Post " +
+                "WHERE ";
+        String[] terms = input.split(" ");
+        for (int i = 0; i < terms.length; i++) {
+            terms[i] = "content LIKE '%" + terms[i].replace("'", "''") + "%'";
+            terms[i] += " OR title LIKE '%" + terms[i].replace("'", "''") + "%'";
+        }
+        String s = String.join(" OR ", terms);
+        query += s + ";";
+        Statement stmt = connection.createStatement();
+        ResultSet results = stmt.executeQuery(query);
+        List<Post> posts = new ArrayList<>();
+        int count = 1;
+        while (results.next() && count <= numberOfPosts) {
+            String title = results.getString("title");
+            String content = results.getString("content");
+            String tags = results.getString("tags");
+            String url = results.getString("url");
+            posts.add(new Post(url, title, content));
+            count++;
+        }
+        stmt.close();
+        return posts;
     }
 
     @Override
@@ -92,7 +116,7 @@ public class SQLiteHelper implements DatabaseHelper {
             String content = results.getString("content");
             String tags = results.getString("tags");
             String url = results.getString("url");
-            posts.add(new Post(title, content, url));
+            posts.add(new Post(url, title, content));
             count++;
         }
         stmt.close();

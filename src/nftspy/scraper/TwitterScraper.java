@@ -64,7 +64,7 @@ public class TwitterScraper extends Scraper {
                 getDriver().get(postUrl);
                 WebElement contentElement = getDriver().findElement(By.xpath("//*[@id='id__28l89zgfbh3']"));
                 String content = contentElement.getText();
-                postList.add(new Post(content, postUrl));
+                postList.add(new Post(postUrl, null, content));
             }
         }
         return postList;

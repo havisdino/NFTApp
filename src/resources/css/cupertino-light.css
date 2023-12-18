@@ -4698,3 +4698,17 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
 .space-1em {
   -fx-spacing: 1em;
 }
+
+.round-button {
+  -fx-max-height: 1em;
+  -fx-max-width: 1em;
+  -fx-min-width: 1em;
+  -fx-min-height: 1em;
+  -fx-background-radius: 5em;
+}
+
+.close-button {
+}
+
+.minimize-button {
+}

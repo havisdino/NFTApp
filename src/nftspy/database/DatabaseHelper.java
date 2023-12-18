@@ -9,7 +9,7 @@ public interface DatabaseHelper {
     void flush() throws Exception;
     void insert(Post post) throws Exception;
     void delete(Post post) throws Exception;
-    void search(String query) throws Exception;
+    List<Post> search(String input, int numberOfPosts) throws Exception;
     List<Post> getLatestPostList(int numberOfPosts) throws Exception;
     void close() throws Exception;
 }

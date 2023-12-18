@@ -1,12 +1,11 @@
 package nftspy.gui;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.control.Label;
 
-public class AnalyzerController extends Controller {
+public class AnalyzerController {
 
     @FXML
     private Label correlationLabel;
@@ -23,6 +22,4 @@ public class AnalyzerController extends Controller {
     @FXML
     private ScatterChart<?, ?> scatterChart;
 
-    @Override
-    void onAnalyzerButtonClicked(ActionEvent event) {}
 }
