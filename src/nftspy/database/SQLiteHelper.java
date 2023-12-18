@@ -10,7 +10,8 @@ import java.util.List;
 public class SQLiteHelper implements DatabaseHelper {
     Connection connection;
 
-    public SQLiteHelper(String jdbcURL) {
+    public SQLiteHelper(String databasePath) {
+        String jdbcURL = "jdbc:sqlite:" + databasePath;
         try {
             connection = DriverManager.getConnection(jdbcURL);
         } catch (SQLException e) {
@@ -78,7 +79,7 @@ public class SQLiteHelper implements DatabaseHelper {
     }
 
     @Override
-    public List<Post> getLatestPostLst(int numberOfPosts) throws SQLException {
+    public List<Post> getLatestPostList(int numberOfPosts) throws SQLException {
         String query = "SELECT title, content, tags FROM Post" +
                 "ORDER BY time DESC";
         Statement stmt = connection.createStatement();
@@ -93,6 +94,7 @@ public class SQLiteHelper implements DatabaseHelper {
             posts.add(new Post(title, content, url));
             count++;
         }
+        stmt.close();
         return posts;
     }
 }

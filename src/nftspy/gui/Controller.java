@@ -6,6 +6,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.TextField;
+import nftspy.exceptions.NullConfigException;
+import nftspy.fetcher.FetchThread;
+import nftspy.fetcher.Fetcher;
+import nftspy.scraper.ScraperType;
 
 import java.io.IOException;
 
@@ -47,7 +51,12 @@ public class Controller {
 
     @FXML
     void onFetchButtonClicked(ActionEvent event) {
-
+        try {
+            Fetcher fetcher = new Fetcher(ScraperType.AIRNTFS);
+            new FetchThread(fetcher).start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public TextField getSearchTextField() {

@@ -42,7 +42,7 @@ public class Fetcher {
 
     private void saveInDatabase(List<Post> posts) throws Exception {
         String databasePath = Config.DATABASE_PATH;
-        DatabaseHelper databaseHelper = new SQLiteHelper("jdbc:sqlite:" + databasePath);
+        DatabaseHelper databaseHelper = new SQLiteHelper(databasePath);
         try {
             databaseHelper.initialize();
         } catch (Exception ignored) {}

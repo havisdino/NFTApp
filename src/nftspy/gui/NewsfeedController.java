@@ -4,7 +4,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import nftspy.database.DatabaseHelper;
@@ -34,7 +33,7 @@ public class NewsfeedController extends Controller implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         DatabaseHelper db = new SQLiteHelper("jdbc:sqlite:" + Config.DATABASE_PATH);
         try {
-            List<Post> posts = db.getLatestPostLst(NUMBER_OF_POSTS);
+            List<Post> posts = db.getLatestPostList(NUMBER_OF_POSTS);
             for (Post post : posts) {
                 FXMLLoader loader = new FXMLLoader();
                 loader.setLocation(getClass().getResource("/resources/fxml/postcard.fxml"));

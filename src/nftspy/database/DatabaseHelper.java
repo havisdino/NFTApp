@@ -10,6 +10,6 @@ public interface DatabaseHelper {
     void insert(Post post) throws Exception;
     void delete(Post post) throws Exception;
     void search(String query) throws Exception;
-    List<Post> getLatestPostLst(int numberOfPosts) throws Exception;
+    List<Post> getLatestPostList(int numberOfPosts) throws Exception;
     void close() throws Exception;
 }
