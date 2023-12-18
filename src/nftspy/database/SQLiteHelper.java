@@ -81,7 +81,7 @@ public class SQLiteHelper implements DatabaseHelper {
 
     @Override
     public List<Post> getLatestPostList(int numberOfPosts) throws SQLException {
-        String query = "SELECT title, content, tags FROM Post " +
+        String query = "SELECT url, title, content, tags FROM Post " +
                 "ORDER BY time DESC";
         Statement stmt = connection.createStatement();
         ResultSet results = stmt.executeQuery(query);
