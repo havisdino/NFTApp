@@ -1,6 +1,5 @@
 package nftspy.database;
 
-import nftspy.exceptions.IdenticalPrimaryKeyException;
 import nftspy.post.Post;
 
 import java.sql.*;
@@ -46,22 +45,20 @@ public class SQLiteHelper implements DatabaseHelper {
 
     @Override
     public void insert(Post post) throws Exception {
+        String title = post.getTitle() == null? "No title" : post.getTitle();
+        String tags = String.join(" ", post.getTags());
         String query = String.format(
                 "INSERT INTO Post (url, title, content, tags) VALUES ('%s', '%s', '%s', '%s');",
                 post.getUrl().replace("'", "''"),
-                post.getTitle().replace("'", "''"),
+                title.replace("'", "''"),
                 post.getContent().replace("'", "''"),
-                String.join(" ", post.getTags()).replace("'", "''")
+                tags.replace("'", "''")
         );
 
         Statement stmt = connection.createStatement();
         try {
             stmt.executeUpdate(query);
-        } catch (SQLException e) {
-            if (e.getMessage().contains("SQLITE_CONSTRAINT_PRIMARYKEY")) {
-                throw new IdenticalPrimaryKeyException("Primary key constrain failed");
-            }
-        }
+        } catch (SQLException ignored) {}
 
         stmt.close();
     }
@@ -116,7 +113,7 @@ public class SQLiteHelper implements DatabaseHelper {
             String content = results.getString("content");
             String tags = results.getString("tags");
             String url = results.getString("url");
-            posts.add(new Post(url, title, content));
+            posts.add(new Post(url, title, content, tags));
             count++;
         }
         stmt.close();

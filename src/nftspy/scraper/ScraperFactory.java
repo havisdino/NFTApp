@@ -25,6 +25,12 @@ public class ScraperFactory {
                         CONFIG.getChromePath());
             }
 
+            case NFTICALLY -> {
+                return new NFTicallyScraper(
+                        CONFIG.getChromeDriverPath(),
+                        CONFIG.getChromePath());
+            }
+
             default -> throw new IllegalStateException("Unexpected value: " + type);
         }
     }

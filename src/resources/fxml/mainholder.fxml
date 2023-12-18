@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#onMainPaneDragged" onMousePressed="#onMainPanePressed" prefHeight="720.0" prefWidth="1020.0" style="-fx-background-radius: 1em;" styleClass="root" stylesheets="@../css/cupertino-light.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nftspy.gui.MainHolderController">
+<HBox fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#onMainPaneDragged" onMousePressed="#onMainPanePressed" prefHeight="720.0" prefWidth="1020.0" style="-fx-background-radius: 1em; -fx-border-color: -color-base-2; -fx-border-radius: 1em;" styleClass="root" stylesheets="@../css/cupertino-light.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nftspy.gui.MainHolderController">
    <children>
       <VBox alignment="TOP_CENTER" prefHeight="700.0" prefWidth="230.0">
          <children>

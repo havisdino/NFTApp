@@ -42,7 +42,6 @@ public class Config {
 
     private Config() {}
 
-
     private static Config fromJson(String path) throws IOException {
         Gson gson = new Gson();
         JsonReader reader = new JsonReader(new FileReader(path));

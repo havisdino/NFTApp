@@ -137,8 +137,9 @@ public class MainHolderController implements Initializable {
     @FXML
     void onFetchButtonClicked(ActionEvent event) {
         try {
-            Fetcher fetcher = new Fetcher(ScraperType.AIRNTFS);
-            new FetchThread(fetcher).start();
+            new FetchThread(new Fetcher(ScraperType.NFTICALLY)).start();
+            new FetchThread(new Fetcher(ScraperType.AIRNTFS)).start();
+//            new FetchThread(new Fetcher(ScraperType.TWITTER)).start();
         } catch (Exception e) {
             e.printStackTrace();
         }

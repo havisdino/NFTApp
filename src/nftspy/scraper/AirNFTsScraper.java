@@ -28,7 +28,6 @@ public class AirNFTsScraper extends Scraper {
 
     @Override
     public List<Post> browse() {
-        String prefix = "[" + this.getClass().getSimpleName() + "] ";
         System.out.print(prefix + "Initializing ... ");
         List<String> postURLs = getPostURLs();
         System.out.println("Done");

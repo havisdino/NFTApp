@@ -14,8 +14,10 @@ import java.util.List;
 public abstract class Scraper {
     private final WebDriver driver;
     private final Actions actions;
+    protected final String prefix;
 
     public Scraper(String chromeDriverPath, String chromePath) {
+        prefix = "[" + getClass().getSimpleName() + "] ";
         System.setProperty("webdriver.chrome.driver", chromeDriverPath);
         ChromeOptions driverOptions = new ChromeOptions();
         driverOptions.setBinary(chromePath);

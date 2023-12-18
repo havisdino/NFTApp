@@ -1,6 +1,7 @@
 package nftspy.post;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -16,6 +17,16 @@ public class Post {
         this.title = title;
         this.url = url;
         this.tags = extractHashtags(content);
+    }
+
+    public Post(String url, String title, String content, List<String> tags) {
+        this(url, title, content);
+        this.tags.addAll(tags);
+    }
+
+    public Post(String url, String title, String content, String tags) {
+        this(url, title, content);
+        this.tags.addAll(Arrays.asList(tags.split(" ")));
     }
 
     public List<String> getTags() {
@@ -40,7 +51,7 @@ public class Post {
         Matcher matcher = pattern.matcher(input);
         while (matcher.find()) {
             String hashtag = matcher.group().substring(1);
-            hashtags.add(hashtag);
+            hashtags.add("#" + hashtag.replace(" ", "_"));
         }
         return hashtags;
     }

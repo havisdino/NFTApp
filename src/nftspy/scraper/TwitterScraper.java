@@ -48,24 +48,18 @@ public class TwitterScraper extends Scraper {
 
     @Override
     public List<Post> browse() {
-        System.out.print("Logging in ... ");
+        System.out.print(prefix + "Logging in ... ");
         logIn();
-        System.out.println("\\u001B[32m Done");
+        System.out.println("Done");
         search("NFT");
 
-        final int scrollCount = 10;
+        String title = "Twitter Post";
         List<Post> postList = new ArrayList<>();
-        for (int i = 0; i < scrollCount; i++) {
-            getActions().sendKeys(Keys.DOWN);
-            List<WebElement> tweetElements = getDriver().findElements(By.cssSelector("article"));
-            for (WebElement tweetElement : tweetElements) {
-                String postUrl = tweetElement.getAttribute("href");
-
-                getDriver().get(postUrl);
-                WebElement contentElement = getDriver().findElement(By.xpath("//*[@id='id__28l89zgfbh3']"));
-                String content = contentElement.getText();
-                postList.add(new Post(postUrl, null, content));
-            }
+        List<WebElement> elements = getDriver().findElements(By.xpath("//div[@data-testid='tweetText']"));
+        for (WebElement element : elements) {
+            String content = element.getText();
+            String url = element.findElement(By.xpath("//div[contains(@class, 'permalink-tweet-container')]")).getText();
+            postList.add(new Post(url, title, content));
         }
         return postList;
     }
