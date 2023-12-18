@@ -19,7 +19,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Fetcher {
-    private List<Scraper> scrapers = new ArrayList<>();
+    private final List<Scraper> scrapers = new ArrayList<>();
 
     public Fetcher(ScraperType ...types) throws IOException, NullConfigException {
         if (Arrays.stream(types).findAny().isEmpty()) {

@@ -14,6 +14,7 @@ public class SQLiteHelper implements DatabaseHelper {
         String jdbcURL = "jdbc:sqlite:" + databasePath;
         try {
             connection = DriverManager.getConnection(jdbcURL);
+            initialize();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -22,10 +23,10 @@ public class SQLiteHelper implements DatabaseHelper {
     @Override
     public void initialize() throws SQLException {
         Statement stmt = connection.createStatement();
-        String query = "CREATE TABLE Post (" +
+        String query = "CREATE TABLE IF NOT EXISTS Post (" +
                 "url VARCHAR PRIMARY KEY NOT NULL," +
                 "title VARCHAR," +
-                "content VARCHAR," +
+                "content TEXT," +
                 "tags VARCHAR," +
                 "time DATETIME NOT NULL DEFAULT(CURRENT_TIMESTAMP)" +
                 ");";
@@ -80,7 +81,7 @@ public class SQLiteHelper implements DatabaseHelper {
 
     @Override
     public List<Post> getLatestPostList(int numberOfPosts) throws SQLException {
-        String query = "SELECT title, content, tags FROM Post" +
+        String query = "SELECT title, content, tags FROM Post " +
                 "ORDER BY time DESC";
         Statement stmt = connection.createStatement();
         ResultSet results = stmt.executeQuery(query);

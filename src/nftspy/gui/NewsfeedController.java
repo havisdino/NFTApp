@@ -31,7 +31,7 @@ public class NewsfeedController extends Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        DatabaseHelper db = new SQLiteHelper("jdbc:sqlite:" + Config.DATABASE_PATH);
+        DatabaseHelper db = new SQLiteHelper(Config.DATABASE_PATH);
         try {
             List<Post> posts = db.getLatestPostList(NUMBER_OF_POSTS);
             for (Post post : posts) {
