@@ -1,13 +1,13 @@
 package nftspy.database;
 
-import nftspy.post.Post;
+import nftspy.data.Post;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SQLiteHelper implements DatabaseHelper {
-    Connection connection;
+    private Connection connection;
 
     public SQLiteHelper(String databasePath) {
         String jdbcURL = "jdbc:sqlite:" + databasePath;
@@ -21,6 +21,11 @@ public class SQLiteHelper implements DatabaseHelper {
 
     @Override
     public void initialize() throws SQLException {
+        createPostTable();
+        createPriceTable();
+    }
+
+    private void createPostTable() throws SQLException {
         Statement stmt = connection.createStatement();
         String query = "CREATE TABLE IF NOT EXISTS Post (" +
                 "url VARCHAR PRIMARY KEY NOT NULL," +
@@ -28,6 +33,16 @@ public class SQLiteHelper implements DatabaseHelper {
                 "content TEXT," +
                 "tags VARCHAR," +
                 "time DATETIME NOT NULL DEFAULT(CURRENT_TIMESTAMP)" +
+                ");";
+        stmt.executeUpdate(query);
+        stmt.close();
+    }
+
+    private void createPriceTable() throws SQLException {
+        Statement stmt = connection.createStatement();
+        String query = "CREATE TABLE IF NOT EXISTS Price (" +
+                "time DATETIME PRIMARY KEY NOT NULL," +
+                "price REAL NOT NULL" +
                 ");";
         stmt.executeUpdate(query);
         stmt.close();
@@ -48,17 +63,19 @@ public class SQLiteHelper implements DatabaseHelper {
         String title = post.getTitle() == null? "No title" : post.getTitle();
         String tags = String.join(" ", post.getTags());
         String query = String.format(
-                "INSERT INTO Post (url, title, content, tags) VALUES ('%s', '%s', '%s', '%s');",
+                "INSERT INTO Post (url, title, content, tags, time) VALUES ('%s', '%s', '%s', '%s', '%s');",
                 post.getUrl().replace("'", "''"),
                 title.replace("'", "''"),
                 post.getContent().replace("'", "''"),
-                tags.replace("'", "''")
-        );
+                tags.replace("'", "''"),
+                post.getTime().toString().replace("'", "''"));
 
         Statement stmt = connection.createStatement();
         try {
             stmt.executeUpdate(query);
-        } catch (SQLException ignored) {}
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         stmt.close();
     }
@@ -74,10 +91,10 @@ public class SQLiteHelper implements DatabaseHelper {
                 "WHERE ";
         String[] terms = input.split(" ");
         for (int i = 0; i < terms.length; i++) {
-            terms[i] = "content LIKE '%" + terms[i].replace("'", "''") + "%'";
-            terms[i] += " OR title LIKE '%" + terms[i].replace("'", "''") + "%'";
+            terms[i] = "(content LIKE '%" + terms[i].replace("'", "''") + "%'";
+            terms[i] += " OR title LIKE '%" + terms[i].replace("'", "''") + "%')";
         }
-        String s = String.join(" OR ", terms);
+        String s = String.join(" AND ", terms);
         query += s + ";";
         Statement stmt = connection.createStatement();
         ResultSet results = stmt.executeQuery(query);
@@ -88,7 +105,7 @@ public class SQLiteHelper implements DatabaseHelper {
             String content = results.getString("content");
             String tags = results.getString("tags");
             String url = results.getString("url");
-            posts.add(new Post(url, title, content));
+            posts.add(new Post(url, title, content, tags));
             count++;
         }
         stmt.close();

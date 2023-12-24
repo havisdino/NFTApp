@@ -1,6 +1,6 @@
 package nftspy.database;
 
-import nftspy.post.Post;
+import nftspy.data.Post;
 
 import java.util.List;
 

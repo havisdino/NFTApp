@@ -31,6 +31,12 @@ public class ScraperFactory {
                         CONFIG.getChromePath());
             }
 
+            case OPENSEA -> {
+                return new OpenSeaScraper(
+                        CONFIG.getChromeDriverPath(),
+                        CONFIG.getChromePath());
+            }
+
             default -> throw new IllegalStateException("Unexpected value: " + type);
         }
     }

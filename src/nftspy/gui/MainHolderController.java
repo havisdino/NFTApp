@@ -16,7 +16,7 @@ import nftspy.database.SQLiteHelper;
 import nftspy.exceptions.NullConfigException;
 import nftspy.fetcher.FetchThread;
 import nftspy.fetcher.Fetcher;
-import nftspy.post.Post;
+import nftspy.data.Post;
 import nftspy.scraper.ScraperType;
 import nftspy.utils.Config;
 
@@ -137,9 +137,9 @@ public class MainHolderController implements Initializable {
     @FXML
     void onFetchButtonClicked(ActionEvent event) {
         try {
-            new FetchThread(new Fetcher(ScraperType.NFTICALLY)).start();
-            new FetchThread(new Fetcher(ScraperType.AIRNTFS)).start();
-//            new FetchThread(new Fetcher(ScraperType.TWITTER)).start();
+//            new FetchThread(new Fetcher(ScraperType.NFTICALLY)).start();
+//            new FetchThread(new Fetcher(ScraperType.AIRNTFS)).start();
+            new FetchThread(new Fetcher(ScraperType.OPENSEA)).start();
         } catch (Exception e) {
             e.printStackTrace();
         }

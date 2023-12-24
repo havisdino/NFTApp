@@ -1,4 +1,4 @@
-package nftspy.post;
+package nftspy.data;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,6 +11,7 @@ public class Post {
     private final String title;
     private final String url;
     private List<String> tags;
+    private DateTime time;
 
     public Post(String url, String title, String content) {
         this.content = content;
@@ -21,12 +22,27 @@ public class Post {
 
     public Post(String url, String title, String content, List<String> tags) {
         this(url, title, content);
-        this.tags.addAll(tags);
+        for (String tag : tags) {
+            this.tags.add(tag.replace(" ", ""));
+        }
+    }
+
+    public Post(String url, String title, String content, DateTime time) {
+        this(url, title, content);
+        this.time = time;
+    }
+
+    public Post(String url, String title, String content, List<String> tags, DateTime time) {
+        this(url, title, content, tags);
+        this.time = time;
     }
 
     public Post(String url, String title, String content, String tags) {
         this(url, title, content);
-        this.tags.addAll(Arrays.asList(tags.split(" ")));
+        List<String> tagList = Arrays.asList(tags.split(" "));
+        for (String tag : tagList) {
+            this.tags.add(tag.replace(" ", ""));
+        }
     }
 
     public List<String> getTags() {
@@ -43,6 +59,10 @@ public class Post {
 
     public String getUrl() {
         return url;
+    }
+
+    public DateTime getTime() {
+        return time;
     }
 
     public static List<String> extractHashtags(String input) {

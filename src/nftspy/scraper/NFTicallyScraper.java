@@ -1,13 +1,32 @@
 package nftspy.scraper;
 
-import nftspy.post.Post;
+import nftspy.data.DateTime;
+import nftspy.data.Post;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class NFTicallyScraper extends Scraper {
+    private static final Map<String, Integer> monthMap = new HashMap<>();
+    static {
+        monthMap.put("JANUARY", Integer.valueOf(1));
+        monthMap.put("FEBRUARY", Integer.valueOf(2));
+        monthMap.put("MARCH", Integer.valueOf(3));
+        monthMap.put("APRIL", Integer.valueOf(4));
+        monthMap.put("MAY", Integer.valueOf(5));
+        monthMap.put("JUNE", Integer.valueOf(6));
+        monthMap.put("JULY", Integer.valueOf(7));
+        monthMap.put("AUGUST", Integer.valueOf(8));
+        monthMap.put("SEPTEMBER", Integer.valueOf(9));
+        monthMap.put("OCTOBER", Integer.valueOf(10));
+        monthMap.put("NOVEMBER", Integer.valueOf(11));
+        monthMap.put("DECEMBER", Integer.valueOf(12));
+    }
+
     public NFTicallyScraper(String chromeDriverPath, String chromePath) {
         super(chromeDriverPath, chromePath);
     }
@@ -31,7 +50,18 @@ public class NFTicallyScraper extends Scraper {
             for (WebElement e : getDriver().findElements(By.className("saspot-label"))) {
                 tags.add("#" + e.getText());
             }
-            posts.add(new Post(url, title, content, tags));
+
+            WebElement blogDate = getDriver().findElement(By.className("blog-date"));
+            List<WebElement> liTags = blogDate.findElements(By.tagName("li"));
+            WebElement timeElement = liTags.get(1);
+            String time = timeElement.getText();
+            String[] timeComponents = time.split(" ");
+            DateTime dateTime = new DateTime(
+                    Integer.parseInt(timeComponents[2]),
+                    monthMap.get(timeComponents[0].toUpperCase()),
+                    Integer.parseInt(timeComponents[1].replace(",", "")));
+
+            posts.add(new Post(url, title, content, tags, dateTime));
         }
         return posts;
     }

@@ -6,7 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.layout.VBox;
 import nftspy.database.DatabaseHelper;
 import nftspy.database.SQLiteHelper;
-import nftspy.post.Post;
+import nftspy.data.Post;
 import nftspy.utils.Config;
 
 import java.io.IOException;

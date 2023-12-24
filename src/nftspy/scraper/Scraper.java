@@ -2,7 +2,7 @@
 
 package nftspy.scraper;
 
-import nftspy.post.Post;
+import nftspy.data.Post;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;

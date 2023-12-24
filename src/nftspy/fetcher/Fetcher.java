@@ -6,7 +6,7 @@ import nftspy.database.DatabaseHelper;
 import nftspy.database.SQLiteHelper;
 import nftspy.exceptions.IdenticalPrimaryKeyException;
 import nftspy.exceptions.NullConfigException;
-import nftspy.post.Post;
+import nftspy.data.Post;
 import nftspy.scraper.Scraper;
 import nftspy.scraper.ScraperFactory;
 import nftspy.scraper.ScraperType;

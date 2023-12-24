@@ -2,7 +2,7 @@ package nftspy.gui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import nftspy.post.Post;
+import nftspy.data.Post;
 
 public class PostCardController {
 
