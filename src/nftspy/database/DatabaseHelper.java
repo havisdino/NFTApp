@@ -11,5 +11,6 @@ public interface DatabaseHelper {
     void delete(Post post) throws Exception;
     List<Post> search(String input, int numberOfPosts) throws Exception;
     List<Post> getLatestPostList(int numberOfPosts) throws Exception;
+    List<String> getLatestTags(int numberOfTags) throws Exception;
     void close() throws Exception;
 }

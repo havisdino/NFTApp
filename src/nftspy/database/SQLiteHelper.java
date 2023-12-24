@@ -136,4 +136,18 @@ public class SQLiteHelper implements DatabaseHelper {
         stmt.close();
         return posts;
     }
+
+    @Override
+    public List<String> getLatestTags(int numberOfRecord) throws SQLException {
+        String query = "SELECT tags FROM Post ORDER BY time DESC";
+        Statement stmt = connection.createStatement();
+        ResultSet results = stmt.executeQuery(query);
+        List<String> tagList = new ArrayList<>();
+        int count = 1;
+        while (results.next() && count <= numberOfRecord) {
+            String tags = results.getString("tags");
+            tagList.addAll(Post.parseTags(tags));
+        }
+        return tagList;
+    }
 }

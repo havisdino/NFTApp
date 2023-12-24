@@ -17,7 +17,7 @@ public class Post {
         this.content = content;
         this.title = title;
         this.url = url;
-        this.tags = extractHashtags(content);
+        this.tags = parseTags(content);
     }
 
     public Post(String url, String title, String content, List<String> tags) {
@@ -65,7 +65,7 @@ public class Post {
         return time;
     }
 
-    public static List<String> extractHashtags(String input) {
+    public static List<String> parseTags(String input) {
         List<String> hashtags = new ArrayList<>();
         Pattern pattern = Pattern.compile("#\\w+");
         Matcher matcher = pattern.matcher(input);
