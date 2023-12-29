@@ -1,5 +1,6 @@
 package nftspy.analyzer;
 
+import nftspy.data.DateTime;
 import nftspy.database.DatabaseHelper;
 import nftspy.database.SQLiteHelper;
 import nftspy.utils.Config;
@@ -14,7 +15,10 @@ public class TrendAnalyzer {
 
     public List<String> getTopTags() throws Exception {
         Map<String, Integer> frequencyMap = new HashMap<>();
-        List<String> tags = db.getLatestTags(NUMBER_OF_TAGS);
+        DateTime now = DateTime.now();
+        DateTime then = DateTime.now();
+        then.backInMonth(1);
+        List<String> tags = db.getTagList(then, now);
         for (String tag : tags) {
             Integer freq = frequencyMap.get(tag);
             if (freq == null) {

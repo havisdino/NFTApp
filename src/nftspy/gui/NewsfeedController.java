@@ -4,9 +4,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.VBox;
+import nftspy.data.DateTime;
+import nftspy.data.Post;
 import nftspy.database.DatabaseHelper;
 import nftspy.database.SQLiteHelper;
-import nftspy.data.Post;
 import nftspy.utils.Config;
 
 import java.io.IOException;
@@ -23,7 +24,10 @@ public class NewsfeedController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         DatabaseHelper db = new SQLiteHelper(Config.DATABASE_PATH);
         try {
-            List<Post> posts = db.getLatestPostList(NUMBER_OF_POSTS);
+            DateTime now = DateTime.now();
+            DateTime then = DateTime.now();
+            then.backInMonth(3);
+            List<Post> posts = db.getPostList(then, now);
             addPostCard(posts);
             db.close();
         } catch (Exception e) {

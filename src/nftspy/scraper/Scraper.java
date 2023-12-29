@@ -1,8 +1,5 @@
-// Dinh Viet Ha - 20215042
-
 package nftspy.scraper;
 
-import nftspy.data.Post;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -21,7 +18,16 @@ public abstract class Scraper {
         System.setProperty("webdriver.chrome.driver", chromeDriverPath);
         ChromeOptions driverOptions = new ChromeOptions();
         driverOptions.setBinary(chromePath);
-        driverOptions.addArguments("headless");
+        driverOptions.addArguments(
+                "headless",
+                "ignore-certificate-errors",
+                "disable-gpu",
+                "allow-running-insecure-content",
+                "window-size=1920,1080",
+                "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) " +
+                        "AppleWebKit/537.36 (KHTML, like Gecko) " +
+                        "Chrome/94.0.4606.81 Safari/537.36"
+                );
 
         driverOptions.setPageLoadStrategy(PageLoadStrategy.EAGER);
         driver = new ChromeDriver(driverOptions);
@@ -36,10 +42,13 @@ public abstract class Scraper {
         return driver;
     }
 
-    public abstract List<Post> browse();
+    public String getPrefix() {
+        return prefix;
+    }
+
+    public abstract List<?> browse();
 
     public void close() {
-        String prefix = "[" + this.getClass().getSimpleName() + "] ";
         System.out.println(prefix + "Browser driver closed");
         driver.quit();
     }

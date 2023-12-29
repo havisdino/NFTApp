@@ -3,19 +3,20 @@
 package nftspy.scraper;
 
 import nftspy.data.Post;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+import org.openqa.selenium.io.FileHandler;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class TwitterScraper extends Scraper {
+public class TwitterPostScraper extends PostScraper {
     private final String email;
     private final String password;
 
-    public TwitterScraper(String email, String password, String chromeDriverPath, String chromePath) {
+    public TwitterPostScraper(String email, String password, String chromeDriverPath, String chromePath) {
         super(chromeDriverPath, chromePath);
         this.email = email;
         this.password = password;
@@ -23,8 +24,9 @@ public class TwitterScraper extends Scraper {
 
     private void logIn() {
         getDriver().get("https://twitter.com/login");
+
         getDriver().manage().deleteAllCookies();
-        getDriver().manage().timeouts().pageLoadTimeout(40, TimeUnit.SECONDS);
+        getDriver().manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
         getDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 
         WebElement accForm = getDriver().findElement(By.xpath("//input[@name='text']"));
@@ -55,10 +57,10 @@ public class TwitterScraper extends Scraper {
 
         String title = "Twitter Post";
         List<Post> postList = new ArrayList<>();
-        List<WebElement> elements = getDriver().findElements(By.xpath("//div[@data-testid='tweetText']"));
+        List<WebElement> elements = getDriver().findElements(By.tagName("article"));
         for (WebElement element : elements) {
             String content = element.getText();
-            String url = element.findElement(By.xpath("//div[contains(@class, 'permalink-tweet-container')]")).getText();
+            String url = element.findElement(By.className("permalink-tweet-container")).getText();
             postList.add(new Post(url, title, content));
         }
         return postList;

@@ -89,14 +89,6 @@ public class Config {
         fileWriter.close();
     }
 
-    public String getDatabasePath() {
-        return DATABASE_PATH;
-    }
-
-    public String getConfigPath() {
-        return CONFIG_PATH;
-    }
-
     public String getCrawledDirectory() {
         return CRAWLED_DIRECTORY;
     }

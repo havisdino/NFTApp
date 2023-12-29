@@ -37,12 +37,13 @@ public class Post {
         this.time = time;
     }
 
-    public Post(String url, String title, String content, String tags) {
+    public Post(String url, String title, String content, String tags, DateTime time) {
         this(url, title, content);
         List<String> tagList = Arrays.asList(tags.split(" "));
         for (String tag : tagList) {
             this.tags.add(tag.replace(" ", ""));
         }
+        this.time = time;
     }
 
     public List<String> getTags() {

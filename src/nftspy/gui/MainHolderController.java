@@ -11,12 +11,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import nftspy.data.Post;
 import nftspy.database.DatabaseHelper;
 import nftspy.database.SQLiteHelper;
 import nftspy.exceptions.NullConfigException;
 import nftspy.fetcher.FetchThread;
 import nftspy.fetcher.Fetcher;
-import nftspy.data.Post;
 import nftspy.scraper.ScraperType;
 import nftspy.utils.Config;
 
@@ -137,9 +137,10 @@ public class MainHolderController implements Initializable {
     @FXML
     void onFetchButtonClicked(ActionEvent event) {
         try {
-            new FetchThread(new Fetcher(ScraperType.NFTICALLY)).start();
-            new FetchThread(new Fetcher(ScraperType.AIRNTFS)).start();
-//            new FetchThread(new Fetcher(ScraperType.OPENSEA)).start();
+            new FetchThread(ScraperType.NFTICALLY).start();
+            new FetchThread(ScraperType.AIRNTFS).start();
+            new FetchThread(ScraperType.COINGECKO).start();
+//            new FetchThread(new Fetcher(ScraperType.TWITTER)).start();
         } catch (Exception e) {
             e.printStackTrace();
         }

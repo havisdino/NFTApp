@@ -1,5 +1,7 @@
 package nftspy.database;
 
+import nftspy.data.DateTime;
+import nftspy.data.NFTCollection;
 import nftspy.data.Post;
 
 import java.sql.*;
@@ -22,7 +24,7 @@ public class SQLiteHelper implements DatabaseHelper {
     @Override
     public void initialize() throws SQLException {
         createPostTable();
-        createPriceTable();
+        createCollectionTable();
     }
 
     private void createPostTable() throws SQLException {
@@ -38,24 +40,15 @@ public class SQLiteHelper implements DatabaseHelper {
         stmt.close();
     }
 
-    private void createPriceTable() throws SQLException {
+    private void createCollectionTable() throws SQLException {
         Statement stmt = connection.createStatement();
-        String query = "CREATE TABLE IF NOT EXISTS Price (" +
-                "time DATETIME PRIMARY KEY NOT NULL," +
-                "price REAL NOT NULL" +
+        String query = "CREATE TABLE IF NOT EXISTS Collection (" +
+                "name VARCHAR PRIMARY KEY NOT NULL," +
+                "price REAL NOT NULL," +
+                "time DATETIME NOT NULL DEFAULT(CURRENT_TIMESTAMP)" +
                 ");";
         stmt.executeUpdate(query);
         stmt.close();
-    }
-
-    @Override
-    public void flush() {
-        try {
-            Statement stmt = connection.createStatement();
-            String query = "DROP TABLE Post;";
-            stmt.executeUpdate(query);
-            stmt.close();
-        } catch (SQLException ignored) {}
     }
 
     @Override
@@ -63,7 +56,9 @@ public class SQLiteHelper implements DatabaseHelper {
         String title = post.getTitle() == null? "No title" : post.getTitle();
         String tags = String.join(" ", post.getTags());
         String query = String.format(
-                "INSERT INTO Post (url, title, content, tags, time) VALUES ('%s', '%s', '%s', '%s', '%s');",
+                "INSERT OR IGNORE INTO Post " +
+                        "(url, title, content, tags, time) " +
+                        "VALUES ('%s', '%s', '%s', '%s', '%s');",
                 post.getUrl().replace("'", "''"),
                 title.replace("'", "''"),
                 post.getContent().replace("'", "''"),
@@ -81,13 +76,28 @@ public class SQLiteHelper implements DatabaseHelper {
     }
 
     @Override
+    public void insert(NFTCollection collection) throws Exception {
+        String query = String.format(
+                "REPLACE INTO Collection (name, price) " +
+                "VALUES ('%s', %f);",
+                collection.name().replace("'", ""), collection.price());
+        Statement stmt = connection.createStatement();
+        try {
+            stmt.executeUpdate(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        stmt.close();
+    }
+
+    @Override
     public void delete(Post post) throws SQLException {
 
     }
 
     @Override
     public List<Post> search(String input, int numberOfPosts) throws SQLException {
-        String query = "SELECT url, title, content, tags FROM Post " +
+        String query = "SELECT url, title, content, tags, time FROM Post " +
                 "WHERE ";
         String[] terms = input.split(" ");
         for (int i = 0; i < terms.length; i++) {
@@ -105,7 +115,8 @@ public class SQLiteHelper implements DatabaseHelper {
             String content = results.getString("content");
             String tags = results.getString("tags");
             String url = results.getString("url");
-            posts.add(new Post(url, title, content, tags));
+            String time = results.getString("time");
+            posts.add(new Post(url, title, content, tags, DateTime.fromString(time)));
             count++;
         }
         stmt.close();
@@ -118,36 +129,70 @@ public class SQLiteHelper implements DatabaseHelper {
     }
 
     @Override
-    public List<Post> getLatestPostList(int numberOfPosts) throws SQLException {
-        String query = "SELECT url, title, content, tags FROM Post " +
-                "ORDER BY time DESC";
+    public List<Post> getPostList(DateTime start, DateTime end) throws Exception {
+        String query = String.format(
+                "SELECT url, title, content, tags, time FROM Post " +
+                        "WHERE time BETWEEN '%s' AND '%s' " +
+                        "ORDER BY time DESC;",
+                start.toString(), end.toString());
+
         Statement stmt = connection.createStatement();
         ResultSet results = stmt.executeQuery(query);
         List<Post> posts = new ArrayList<>();
-        int count = 1;
-        while (results.next() && count <= numberOfPosts) {
+        while (results.next()) {
             String title = results.getString("title");
             String content = results.getString("content");
             String tags = results.getString("tags");
             String url = results.getString("url");
-            posts.add(new Post(url, title, content, tags));
-            count++;
+            String time = results.getString("time");
+            posts.add(new Post(url, title, content, tags, DateTime.fromString(time)));
         }
         stmt.close();
         return posts;
     }
 
     @Override
-    public List<String> getLatestTags(int numberOfRecord) throws SQLException {
-        String query = "SELECT tags FROM Post ORDER BY time DESC";
+    public List<String> getTagList(DateTime start, DateTime end) throws Exception {
+        String query = String.format(
+                "SELECT tags FROM Post " +
+                        "WHERE time BETWEEN '%s' AND '%s' " +
+                        "ORDER BY time DESC;",
+                start.toString(), end.toString());
+
         Statement stmt = connection.createStatement();
         ResultSet results = stmt.executeQuery(query);
         List<String> tagList = new ArrayList<>();
-        int count = 1;
-        while (results.next() && count <= numberOfRecord) {
+        while (results.next()) {
             String tags = results.getString("tags");
             tagList.addAll(Post.parseTags(tags));
         }
         return tagList;
+    }
+
+    @Override
+    public int getNumberOfPosts(DateTime start, DateTime end) throws Exception {
+        String query = String.format(
+                "SELECT COUNT(url) AS number_of_posts FROM Post " +
+                        "WHERE time BETWEEN '%s' AND '%s';",
+                start.toString(), end.toString());
+
+        Statement stmt = connection.createStatement();
+        ResultSet results = stmt.executeQuery(query);
+        int numberOfPosts = results.getInt("number_of_posts");
+        stmt.close();
+        return numberOfPosts;
+    }
+
+    @Override
+    public double getPriceOnAverage(DateTime start, DateTime end) throws Exception {
+        String query = String.format(
+                "SELECT AVG(price) AS price_on_avg FROM Collection " +
+                        "WHERE time BETWEEN '%s' AND '%s';",
+                start.toString(), end.toString());
+        Statement stmt = connection.createStatement();
+        ResultSet results = stmt.executeQuery(query);
+        double priceOnAverge = results.getDouble("price_on_avg");
+        stmt.close();
+        return priceOnAverge;
     }
 }

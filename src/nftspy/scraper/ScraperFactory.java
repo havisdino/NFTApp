@@ -8,11 +8,11 @@ import java.io.IOException;
 public class ScraperFactory {
     private ScraperFactory() {}
 
-    public static Scraper getScraper(ScraperType type) throws IOException, NullConfigException {
+    public static PostScraper getPostScraper(ScraperType type) throws IOException, NullConfigException {
         final Config CONFIG = Config.getInstance();
         switch (type) {
             case TWITTER -> {
-                return new TwitterScraper(
+                return new TwitterPostScraper(
                         CONFIG.getTwitterUsername(),
                         CONFIG.getTwitterPassword(),
                         CONFIG.getChromeDriverPath(),
@@ -20,23 +20,36 @@ public class ScraperFactory {
             }
 
             case AIRNTFS -> {
-                return new AirNFTsScraper(
+                return new AirNFTsPostScraper(
                         CONFIG.getChromeDriverPath(),
                         CONFIG.getChromePath());
             }
 
             case NFTICALLY -> {
-                return new NFTicallyScraper(
+                return new NFTicallyPostScraper(
                         CONFIG.getChromeDriverPath(),
                         CONFIG.getChromePath());
             }
 
             case OPENSEA -> {
-                return new OpenSeaScraper(
+                return new OpenSeaPostScraper(
                         CONFIG.getChromeDriverPath(),
                         CONFIG.getChromePath());
             }
 
+            default -> throw new IllegalStateException("Unexpected value: " + type);
+        }
+    }
+
+    public static CollectionScraper getCollectionScraper(ScraperType type) throws IOException, NullConfigException {
+        final Config CONFIG = Config.getInstance();
+        switch (type) {
+            case COINGECKO -> {
+                return new CoinGeckoCollectionScraper(
+                        CONFIG.getChromeDriverPath(),
+                        CONFIG.getChromePath());
+            }
+            
             default -> throw new IllegalStateException("Unexpected value: " + type);
         }
     }
