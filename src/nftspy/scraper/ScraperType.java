@@ -4,5 +4,7 @@ public enum ScraperType {
     TWITTER,
     AIRNTFS,
     OPENSEA,
-    NFTICALLY
+    NFTICALLY,
+    COINGECKO,
+    COINMARKERCAP
 }

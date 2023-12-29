@@ -79,5 +79,4 @@ public class SettingsController implements Initializable {
             notificationIcon.setImage(new Image("/resources/images/done.png"));
         }
     }
-
 }

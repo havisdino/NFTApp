@@ -1,5 +1,9 @@
 package nftspy.data;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class DateTime {
     private int second;
     private int minute;
@@ -8,8 +12,6 @@ public class DateTime {
     private int year;
     private int month;
     private int day;
-
-    public DateTime() {}
 
     public DateTime(int year, int month, int day) {
         setYear(year);
@@ -22,6 +24,40 @@ public class DateTime {
         setSecond(second);
         setMinute(minute);
         setHour(hour);
+    }
+
+    public void backInMonth(int months) {
+        if (month - months <= 0) {
+            int numberOfYears = months / 12;
+            int remainingMonths = months - 12 * numberOfYears;
+            setYear(year - numberOfYears);
+            setMonth(month - remainingMonths);
+        } else {
+            setMonth(month - months);
+        }
+    }
+
+    public static DateTime now() {
+        LocalDateTime t = LocalDateTime.now();
+        return new DateTime(
+                t.getSecond(),
+                t.getMinute(),
+                t.getHour(),
+                t.getYear(),
+                t.getMonthValue(),
+                t.getDayOfMonth());
+    }
+
+    public static DateTime fromString(String s) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("y-M-d h:m:s");
+        LocalDateTime t = LocalDate.parse(s, formatter).atStartOfDay();
+        return new DateTime(
+                t.getSecond(),
+                t.getMinute(),
+                t.getHour(),
+                t.getYear(),
+                t.getMonthValue(),
+                t.getDayOfMonth());
     }
 
     public int getHour() {
@@ -80,6 +116,8 @@ public class DateTime {
 
     @Override
     public String toString() {
-        return year + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + second;
+        return String.format(
+                "%04d-%02d-%02d %02d:%02d:%02d",
+                year, month, day, hour, minute, second);
     }
 }

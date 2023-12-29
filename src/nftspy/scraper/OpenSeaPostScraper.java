@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class OpenSeaScraper extends Scraper {
+public class OpenSeaPostScraper extends PostScraper {
     private static final Map<String, Integer> monthMap = new HashMap<>();
     static {
         monthMap.put("JANUARY", Integer.valueOf(1));
@@ -27,7 +27,7 @@ public class OpenSeaScraper extends Scraper {
         monthMap.put("DECEMBER", Integer.valueOf(12));
     }
 
-    public OpenSeaScraper(String chromeDriverPath, String chromePath) {
+    public OpenSeaPostScraper(String chromeDriverPath, String chromePath) {
         super(chromeDriverPath, chromePath);
     }
 
@@ -45,7 +45,7 @@ public class OpenSeaScraper extends Scraper {
 
         for (String url : urls) {
             getDriver().get(url);
-            String title = getDriver().findElement(By.xpath("//div[@class='headline']")).getText();
+            String title = getDriver().findElement(By.className("headline")).getText();
             String content = getDriver().findElement(By.className("article-body-wrapper w-richtext")).getText();
             String time = getDriver().findElement(By.className("article-published-date"))
                             .findElements(By.tagName("div")).get(1).getText();

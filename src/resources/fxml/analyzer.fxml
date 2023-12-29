@@ -36,7 +36,7 @@
                <children>
                   <ScatterChart fx:id="scatterChart">
                      <xAxis>
-                        <CategoryAxis label="Number of posts" side="BOTTOM" />
+                        <NumberAxis label="Number of posts" side="BOTTOM" />
                      </xAxis>
                      <yAxis>
                         <NumberAxis label="Price on average" side="LEFT" />
@@ -44,7 +44,7 @@
                   </ScatterChart>
                   <LineChart fx:id="lineChart" GridPane.columnIndex="1">
                      <xAxis>
-                        <CategoryAxis label="Number of posts" side="BOTTOM" />
+                        <NumberAxis label="Number of posts" side="BOTTOM" />
                      </xAxis>
                      <yAxis>
                         <NumberAxis label="Price on average" side="LEFT" />
@@ -66,11 +66,11 @@
                      </rowConstraints>
                      <children>
                         <Label text="Number of posts - price correlation coefficient:" />
-                        <Label text="Number of posts in this month:" GridPane.rowIndex="1" />
+                        <Label text="Number of crawled posts in this month:" GridPane.rowIndex="1" />
                         <Label text="Price on average in this month:" GridPane.rowIndex="2" />
-                        <Label fx:id="correlationLabel" text="null" GridPane.columnIndex="1" />
-                        <Label fx:id="postNumberLabel" text="null" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label fx:id="priceLabel" text="null" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label fx:id="correlationLabel" style="-fx-text-fill: -color-accent-7;" text="null" GridPane.columnIndex="1" />
+                        <Label fx:id="postNumberLabel" style="-fx-text-fill: -color-accent-7;" text="null" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="priceLabel" style="-fx-text-fill: -color-accent-7;" text="null" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
                </children>

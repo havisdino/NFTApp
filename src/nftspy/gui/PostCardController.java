@@ -10,6 +10,9 @@ public class PostCardController {
     private Label content;
 
     @FXML
+    private Label date;
+
+    @FXML
     private Label hashtags;
 
     @FXML
@@ -17,6 +20,7 @@ public class PostCardController {
 
     public void setData(Post post) {
         title.setText(post.getTitle());
+        date.setText(post.getTime().toString());
         content.setText(post.getContent());
         hashtags.setText(String.join(" ", post.getTags()));
     }

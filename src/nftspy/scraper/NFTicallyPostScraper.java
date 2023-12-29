@@ -10,8 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AirNFTsScraper extends Scraper {
-    private static final int MAX_POSTS_FETCHED = 50;
+public class NFTicallyPostScraper extends PostScraper {
     private static final Map<String, Integer> monthMap = new HashMap<>();
     static {
         monthMap.put("JANUARY", Integer.valueOf(1));
@@ -28,38 +27,33 @@ public class AirNFTsScraper extends Scraper {
         monthMap.put("DECEMBER", Integer.valueOf(12));
     }
 
-    public AirNFTsScraper(String chromeDriverPath, String chromePath) {
+    public NFTicallyPostScraper(String chromeDriverPath, String chromePath) {
         super(chromeDriverPath, chromePath);
-    }
-
-    private List<String> getPostURLs() {
-        getDriver().get("https://www.airnfts.com/blog");
-        WebElement list = getDriver().findElement(By.xpath("//div[@role='list']"));
-        List<WebElement> postThumbnails = list.findElements(By.tagName("a"));
-        List<String> postURLs = new ArrayList<>();
-        for (WebElement e : postThumbnails) {
-            String url = e.getAttribute("href");
-            postURLs.add(url);
-        }
-        return postURLs;
     }
 
     @Override
     public List<Post> browse() {
-        System.out.print(prefix + "Initializing ... ");
-        List<String> postURLs = getPostURLs();
-        System.out.println("Done");
-
+        System.out.println(prefix + "Initilizing ... ");
+        getDriver().get("https://www.nftically.com/blog/");
+        System.out.println(prefix + "Done");
+        List<WebElement> elements = getDriver().findElements(By.className("blog-title"));
+        List<String> urls = new ArrayList<>();
         List<Post> posts = new ArrayList<>();
-
-        for (String url : postURLs.subList(0, AirNFTsScraper.MAX_POSTS_FETCHED)) {
+        for (WebElement e : elements) {
+            urls.add(e.findElement(By.tagName("a")).getAttribute("href"));
+        }
+        for (String url : urls) {
             getDriver().get(url);
-            WebElement titleElement = getDriver().findElement(By.className("blog-header-h1"));
-            String title = titleElement.getText();
-            WebElement articleElement = getDriver().findElement(By.tagName("article"));
-            String content = articleElement.getText();
+            String title = getDriver().findElement(By.className("page-title")).getText();
+            String content = getDriver().findElement(By.className("blog-detail-wrap")).getText();
+            List<String> tags = new ArrayList<>();
+            for (WebElement e : getDriver().findElements(By.className("saspot-label"))) {
+                tags.add("#" + e.getText());
+            }
 
-            WebElement timeElement = getDriver().findElement(By.className("blog-detail-date"));
+            WebElement blogDate = getDriver().findElement(By.className("blog-date"));
+            List<WebElement> liTags = blogDate.findElements(By.tagName("li"));
+            WebElement timeElement = liTags.get(1);
             String time = timeElement.getText();
             String[] timeComponents = time.split(" ");
             DateTime dateTime = new DateTime(
@@ -67,7 +61,7 @@ public class AirNFTsScraper extends Scraper {
                     monthMap.get(timeComponents[0].toUpperCase()),
                     Integer.parseInt(timeComponents[1].replace(",", "")));
 
-            posts.add(new Post(url, title, content, dateTime));
+            posts.add(new Post(url, title, content, tags, dateTime));
         }
         return posts;
     }

@@ -36,7 +36,5 @@ public class TrendingController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
     }
 }

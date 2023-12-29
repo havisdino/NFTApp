@@ -36,6 +36,9 @@
                                              <font>
                                                 <Font name="System Bold" size="30.0" />
                                              </font>
+                                             <VBox.margin>
+                                                <Insets left="20.0" right="20.0" />
+                                             </VBox.margin>
                                           </Label>
                                        </children>
                                     </VBox>
@@ -54,6 +57,9 @@
                                              <font>
                                                 <Font name="System Bold" size="30.0" />
                                              </font>
+                                             <VBox.margin>
+                                                <Insets left="20.0" right="20.0" />
+                                             </VBox.margin>
                                           </Label>
                                        </children>
                                     </VBox>
@@ -68,10 +74,13 @@
                                                 <Font name="System Bold" size="30.0" />
                                              </font>
                                           </Label>
-                                          <Label fx:id="thirdHashTag" layoutX="76.0" layoutY="96.0" style="-fx-text-fill: #FFFFFF;" styleClass="title-5" text="#Hashtag3" textFill="WHITE" wrapText="true">
+                                          <Label fx:id="thirdHashTag" layoutX="76.0" layoutY="96.0" style="-fx-text-fill: #FFFFFF;" styleClass="title-5" text="#ThisIsAVeryLongHashTag" textFill="WHITE" wrapText="true">
                                              <font>
                                                 <Font name="System Bold" size="30.0" />
                                              </font>
+                                             <VBox.margin>
+                                                <Insets left="20.0" right="20.0" />
+                                             </VBox.margin>
                                           </Label>
                                        </children>
                                     </VBox>
@@ -83,7 +92,7 @@
                   </AnchorPane>
                </children>
             </VBox>
-            <Label prefHeight="29.0" prefWidth="292.0" styleClass="title-5" text="Top-20 keyword list">
+            <Label prefHeight="29.0" prefWidth="292.0" styleClass="title-5" text="Top-20 hashtag list">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
